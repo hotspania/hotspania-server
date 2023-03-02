@@ -18,7 +18,7 @@ export default class ClientControler {
 
     if (term === "all") {
       query = "Lista General";
-    } else if (term === "rosario") {
+    } else if (term === "barcelona") {
       query = "Lista General";
     } else if (term === "vip") {
       query = "V.I.P";
