@@ -17,7 +17,7 @@ import NoticiasController from '../controllers/noticiasController';
 import LoginController from '../controllers/loginController';
 import LetraController from '../controllers/letraController';
 
-const router= Router();
+const router = Router();
 
 
 //admins
