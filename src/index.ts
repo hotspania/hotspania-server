@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import router from "./routes/router";
 import mongoose from "mongoose";
 import fileUpload  from 'express-fileupload';
-import path from 'path';
+import * as path from 'path';
 import express from 'express';
 
 import { DBURL, SERVER_PORT } from './global/enviroment';
