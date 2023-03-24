@@ -21,7 +21,7 @@ const peticionesController_1 = __importDefault(require("../controllers/peticione
 const noticiasController_1 = __importDefault(require("../controllers/noticiasController"));
 const loginController_1 = __importDefault(require("../controllers/loginController"));
 const letraController_1 = __importDefault(require("../controllers/letraController"));
-const router = express_1.Router();
+const router = (0, express_1.Router)();
 //admins
 router.post('/admincreate', adminsController_1.default.crearUsuario);
 router.post('/adminlogin', adminsController_1.default.login);

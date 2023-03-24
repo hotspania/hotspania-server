@@ -32,7 +32,7 @@ class UserController {
                 nombre,
                 dni: $dni,
                 telefono: $telefono,
-                fecha_nacimiento,
+                fecha_nacimiento: null,
             },
             email: $email,
             pass: password,
@@ -61,8 +61,7 @@ class UserController {
     }
     static putFakeData(req, res) {
         let { id, username, edad, fumadora, atencion, tags, zonas, telefono, whatsapp, busto, cintura, genero, estatura, peso, cadera, servicios, clase, inicio, fin, horario_inicio, horario_fin, } = req.body;
-        let $telefono = telefono.replace(/ /g, "").trim();
-        let $whatsapp = whatsapp.replace(/ /g, "").trim();
+        //let $whatsapp = whatsapp.replace(/ /g, "").trim();
         users_1.default.updateOne({ _id: id }, {
             $set: {
                 fakeData: {
@@ -72,8 +71,8 @@ class UserController {
                     atencion,
                     tags,
                     zonas,
-                    telefono: $telefono,
-                    whatsapp: $whatsapp,
+                    telefono,
+                    //whatsapp: $whatsapp,
                     busto,
                     cintura,
                     genero,

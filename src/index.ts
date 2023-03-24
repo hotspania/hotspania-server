@@ -4,8 +4,6 @@ import bodyParser from "body-parser";
 import router from "./routes/router";
 import mongoose from "mongoose";
 import fileUpload  from 'express-fileupload';
-import * as path from 'path';
-import express from 'express';
 
 import { DBURL, SERVER_PORT } from './global/enviroment';
 import webrouter from "./routes/webrouter";
@@ -20,7 +18,6 @@ server.app.use( fileUpload() );
 
 server.app.use(cors({ origin: true, credentials: true }));
 
-server.app.use(express.static(path.join(__dirname, 'frontend-web')))
 server.app.use("/api", router);
 server.app.use("/web",  webrouter);
 

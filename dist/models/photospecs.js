@@ -13,4 +13,4 @@ const spec = new mongoose_1.Schema({
 }, {
     versionKey: false // You should be aware of the outcome after set to false
 });
-exports.default = mongoose_1.model('spec', spec);
+exports.default = (0, mongoose_1.model)('spec', spec);

@@ -11,6 +11,7 @@ export default class AdminController {
     modelAdmin
       .findOne({ email: body.email })
       .exec(async (err: any, usuarioDB: any) => {
+        console.log('user', usuarioDB);
         if (err) {
           return res.status(500).json({
             ok: false,
@@ -24,6 +25,8 @@ export default class AdminController {
             message: "No se encuentra el usuario",
           });
         }
+
+        console.log()
 
         if (!bcrypt.compareSync(body.password, usuarioDB.password)) {
           return res.status(400).json({
@@ -48,10 +51,10 @@ export default class AdminController {
       });
   }
   static crearUsuario(req: Request, res: Response) {
-    let { nombre, email, pass, role } = req.body;
-    let password = bcrypt.hashSync(pass, 10);
+    const { nombre, email, pass, role } = req.body;
+    const password = bcrypt.hashSync(pass, 10);
 
-    let usuario = new modelAdmin({
+    const usuario = new modelAdmin({
       nombre,
       role: role,
       email,

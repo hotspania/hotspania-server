@@ -27,4 +27,4 @@ const peticion = new mongoose_1.Schema({
 }, {
     versionKey: false,
 });
-exports.default = mongoose_1.model("peticion", peticion);
+exports.default = (0, mongoose_1.model)("peticion", peticion);

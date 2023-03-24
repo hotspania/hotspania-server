@@ -15,7 +15,7 @@ export default class Server{
 
 
     private constructor(){
-        this.app = express();
+        this.app= express();
         this.port= SERVER_PORT;
         this.httpServer= http.createServer(this.app);
         this.io= new SocketIO.Server(this.httpServer);  

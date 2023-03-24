@@ -19,7 +19,7 @@ class OnlineController {
     static setOnline(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let { id, online, time } = req.body;
-            let datefin = dayjs_1.default().add(time, "hour").format();
+            let datefin = (0, dayjs_1.default)().add(time, "hour").format();
             let existe = yield OnlineController.searchOnline(id)
                 .then((x) => x)
                 .catch((e) => e);

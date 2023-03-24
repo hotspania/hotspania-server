@@ -123,8 +123,8 @@ class CronController {
     }
     static updateProfiles() {
         return new Promise((resolve, reject) => {
-            let today = dayjs_1.default().format();
-            let desde = dayjs_1.default("01-01-2000").format();
+            let today = (0, dayjs_1.default)().format();
+            let desde = (0, dayjs_1.default)("01-01-2000").format();
             profile_1.default
                 .find({
                 comienzo: {
@@ -300,8 +300,8 @@ class CronController {
     }
     static onlineoff() {
         return new Promise((resolve, reject) => {
-            let today = dayjs_1.default().format();
-            let desde = dayjs_1.default("01-01-2000").format();
+            let today = (0, dayjs_1.default)().format();
+            let desde = (0, dayjs_1.default)("01-01-2000").format();
             onlineRecords_1.default
                 .find({
                 time: {

@@ -17,7 +17,7 @@ const uploadController_1 = __importDefault(require("../controllers/uploadControl
 const userController_1 = __importDefault(require("../controllers/userController"));
 const zonesController_1 = __importDefault(require("../controllers/zonesController"));
 const validarToken_1 = require("../middlewares/validarToken");
-const webrouter = express_1.Router();
+const webrouter = (0, express_1.Router)();
 //Cliente
 webrouter.get('/listado/:category', ClientController_1.default.getFichas);
 webrouter.get('/profile/:user', ClientController_1.default.getFicha);

@@ -33,7 +33,7 @@ class UploadController {
             const key = req.params.tipo;
             const archivo = req.files.archivo;
             const fileExt = archivo.mimetype;
-            let { height, width } = image_size_1.default(archivo.data);
+            let { height, width } = (0, image_size_1.default)(archivo.data);
             const ext = archivo.mimetype.split("/")[1];
             const fileName = `${id}${key}${new Date().getMilliseconds()}.${ext}`;
             let extensionesvalidas = [
@@ -196,7 +196,7 @@ class UploadController {
         const key = req.params.tipo;
         let filesupload = 0;
         archivos.forEach((e) => __awaiter(this, void 0, void 0, function* () {
-            let { height, width } = image_size_1.default(e.data);
+            let { height, width } = (0, image_size_1.default)(e.data);
             let fileExt = e.mimetype;
             let ext = e.mimetype.split("/")[1];
             let random = Math.round(Math.random() * 1234);

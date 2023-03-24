@@ -13,7 +13,7 @@ import UserController from '../controllers/userController';
 import ZonesController from '../controllers/zonesController';
 import {validarJWT} from '../middlewares/validarToken';
 
-const webrouter = Router();
+const webrouter =Router();
 
 //Cliente
 webrouter.get('/listado/:category',ClientControler.getFichas);

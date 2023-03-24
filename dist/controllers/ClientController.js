@@ -280,7 +280,7 @@ class ClientControler {
                 email: usuarioDB.email,
                 nombre: usuarioDB.nombre,
             };
-            let token = yield Jwt_1.generarJWT(payload);
+            let token = yield (0, Jwt_1.generarJWT)(payload);
             usuarioDB.pass = ":D";
             let x = yield loginController_1.default.saveLoginNofaceRecord(body.email, "EXITOSO", "100", "false");
             return res.status(200).json({

@@ -16,4 +16,4 @@ const tag = new mongoose_1.Schema({
 }, {
     versionKey: false
 });
-exports.default = mongoose_1.model('tag', tag);
+exports.default = (0, mongoose_1.model)('tag', tag);

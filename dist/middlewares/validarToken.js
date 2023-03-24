@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.validarJWT = void 0;
 const enviroment_1 = require("../global/enviroment");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-exports.validarJWT = (req, res, next) => {
+const validarJWT = (req, res, next) => {
     const token = req.header('x-token');
     if (!token) {
         return res.status(401).json({
@@ -25,3 +25,4 @@ exports.validarJWT = (req, res, next) => {
         });
     }
 };
+exports.validarJWT = validarJWT;
