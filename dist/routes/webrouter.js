@@ -26,6 +26,8 @@ webrouter.post('/login', ClientController_1.default.Clientlogin);
 webrouter.post('/logintwo', ClientController_1.default.loginNoFace);
 webrouter.post('/applogin', validarToken_1.validarJWT, ClientController_1.default.ClientApplogin);
 webrouter.get('/tokenstatus', validarToken_1.validarJWT, ClientController_1.default.StatusToken);
+webrouter.get('/checkemailuser/:id', userController_1.default.check);
+webrouter.get('/checkusername/:id', userController_1.default.checkUsername);
 //UPLOAD
 webrouter.post('/uploads/:tipo/:id', uploadController_1.default.uploadFiles);
 webrouter.post('/upload/:tipo/:id', uploadController_1.default.uploadFile);

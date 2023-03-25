@@ -23,6 +23,8 @@ webrouter.post('/login',ClientControler.Clientlogin);
 webrouter.post('/logintwo',ClientControler.loginNoFace);
 webrouter.post('/applogin',validarJWT,ClientControler.ClientApplogin);
 webrouter.get('/tokenstatus',validarJWT,ClientControler.StatusToken);
+webrouter.get('/checkemailuser/:id',UserController.check);
+webrouter.get('/checkusername/:id',UserController.checkUsername);
 
 
 //UPLOAD
