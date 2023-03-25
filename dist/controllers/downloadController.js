@@ -26,7 +26,7 @@ class DownloadController {
         let height = parseInt(req.params.height);
         let pathFile = path_1.default.resolve(__dirname, `../../uploads/${tipo}/${img}`);
         if (fs_1.default.existsSync(pathFile)) {
-            sharp_1.default(pathFile).resize(width, height).jpeg({ mozjpeg: true }).toBuffer().then(data => res.end(data)).catch(err => {
+            (0, sharp_1.default)(pathFile).resize(width, height).jpeg({ mozjpeg: true }).toBuffer().then(data => res.end(data)).catch(err => {
                 console.log("error");
             });
             // res.sendFile(pathFile);

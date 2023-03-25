@@ -17,4 +17,4 @@ const admin = new mongoose_1.Schema({
 }, {
     versionKey: false
 });
-exports.default = mongoose_1.model('admin', admin);
+exports.default = (0, mongoose_1.model)('admin', admin);

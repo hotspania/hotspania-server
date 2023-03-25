@@ -54,7 +54,7 @@ class LetraController {
     }
     static asignar(req, res) {
         let { user, profile, dias, id, fecha_inicio, active, taked } = req.body;
-        let $fecha_inicio = dayjs_1.default(fecha_inicio);
+        let $fecha_inicio = (0, dayjs_1.default)(fecha_inicio);
         let x = parseInt(dias);
         let fecha_fin = $fecha_inicio.add(x, "day").format();
         letra_1.default

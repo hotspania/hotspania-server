@@ -39,6 +39,7 @@ router.get('/getprofile/:id',UserController.getFicha);
 router.get('/getalldata/:id',UserController.getAllFicha);
 router.get('/getdnidata/:id',UserController.getDniUser);
 router.get('/checkemailuser/:id',UserController.check);
+router.get('/checkusername/:id',UserController.checkUsername);
 
 router.get('/getimagesuser/:id/:status/:tipo',UserController.getImagesUser);
 

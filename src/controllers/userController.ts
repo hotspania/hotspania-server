@@ -507,6 +507,27 @@ export default class UserController {
     });
   }
 
+  static checkUsername(req: Request, res: Response) {
+    let username = req.params.id;
+    UserModel.findOne({ "fakeData.username": username }).exec((err: any, username: any) => {
+      if (err) {
+        return res.status(500).json({
+          ok: false,
+          message: "Error",
+          err,
+        });
+      }
+      if (!username) {
+        return res.status(200).json({
+          username: true,
+        });
+      }
+      return res.status(200).json({
+        username: false,
+      });
+    });
+  }
+
   static deleteficha(req: Request, res: Response){
     let { _id }=req.body;
     

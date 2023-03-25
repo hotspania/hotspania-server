@@ -16,8 +16,8 @@ const server = server_1.default.Instance;
 mongoose_1.default.Promise = global.Promise;
 server.app.use(body_parser_1.default.urlencoded({ extended: true }));
 server.app.use(body_parser_1.default.json({ limit: '100mb' }));
-server.app.use(express_fileupload_1.default());
-server.app.use(cors_1.default({ origin: true, credentials: true }));
+server.app.use((0, express_fileupload_1.default)());
+server.app.use((0, cors_1.default)({ origin: true, credentials: true }));
 server.app.use("/api", router_1.default);
 server.app.use("/web", webrouter_1.default);
 mongoose_1.default

@@ -20,8 +20,8 @@ class AnunciosController {
         return __awaiter(this, void 0, void 0, function* () {
             let { id, paquete, fecha_inicio } = req.body;
             let data = yield AnunciosController.getRecordProfile(id).then((resp) => resp);
-            let inicio = dayjs_1.default(fecha_inicio).format();
-            let $fecha_inicio = dayjs_1.default(fecha_inicio);
+            let inicio = (0, dayjs_1.default)(fecha_inicio).format();
+            let $fecha_inicio = (0, dayjs_1.default)(fecha_inicio);
             let x = (parseInt(paquete.days) + 1);
             let fecha_fin = $fecha_inicio.add(x, "day").format();
             profile_1.default
@@ -203,7 +203,7 @@ class AnunciosController {
     }
     static addtime(user, paquete) {
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-            let fecha_fin_actual = dayjs_1.default(user.fin);
+            let fecha_fin_actual = (0, dayjs_1.default)(user.fin);
             // let $fecha_inicio = dayjs(fecha_inicio);
             let x = (parseInt(paquete.days) + 1);
             let fecha_fin = fecha_fin_actual.add(x, "day").format();
@@ -262,7 +262,7 @@ class AnunciosController {
     static ajustDays(req, res) {
         let { id, days } = req.body;
         let dias = parseInt(days);
-        let fecha = dayjs_1.default();
+        let fecha = (0, dayjs_1.default)();
         let fecha_fin = fecha.add(dias, "day").format();
         profile_1.default
             .updateOne({ _id: id }, {

@@ -21,6 +21,7 @@ class AdminController {
         admin_1.default
             .findOne({ email: body.email })
             .exec((err, usuarioDB) => __awaiter(this, void 0, void 0, function* () {
+            console.log('user', usuarioDB);
             if (err) {
                 return res.status(500).json({
                     ok: false,
@@ -34,6 +35,7 @@ class AdminController {
                     message: "No se encuentra el usuario",
                 });
             }
+            console.log();
             if (!bcrypt_1.default.compareSync(body.password, usuarioDB.password)) {
                 return res.status(400).json({
                     ok: false,
@@ -45,7 +47,7 @@ class AdminController {
                 email: usuarioDB.email,
                 nombre: usuarioDB.nombre,
             };
-            let token = yield Jwt_1.generarJWT(payload);
+            let token = yield (0, Jwt_1.generarJWT)(payload);
             usuarioDB.password = ":D";
             return res.status(200).json({
                 ok: true,
@@ -55,9 +57,9 @@ class AdminController {
         }));
     }
     static crearUsuario(req, res) {
-        let { nombre, email, pass, role } = req.body;
-        let password = bcrypt_1.default.hashSync(pass, 10);
-        let usuario = new admin_1.default({
+        const { nombre, email, pass, role } = req.body;
+        const password = bcrypt_1.default.hashSync(pass, 10);
+        const usuario = new admin_1.default({
             nombre,
             role: role,
             email,

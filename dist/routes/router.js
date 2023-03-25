@@ -21,7 +21,7 @@ const peticionesController_1 = __importDefault(require("../controllers/peticione
 const noticiasController_1 = __importDefault(require("../controllers/noticiasController"));
 const loginController_1 = __importDefault(require("../controllers/loginController"));
 const letraController_1 = __importDefault(require("../controllers/letraController"));
-const router = express_1.Router();
+const router = (0, express_1.Router)();
 //admins
 router.post('/admincreate', adminsController_1.default.crearUsuario);
 router.post('/adminlogin', adminsController_1.default.login);
@@ -39,6 +39,7 @@ router.get('/getprofile/:id', userController_1.default.getFicha);
 router.get('/getalldata/:id', userController_1.default.getAllFicha);
 router.get('/getdnidata/:id', userController_1.default.getDniUser);
 router.get('/checkemailuser/:id', userController_1.default.check);
+router.get('/checkusername/:id', userController_1.default.checkUsername);
 router.get('/getimagesuser/:id/:status/:tipo', userController_1.default.getImagesUser);
 router.get('/getpendingimagesuser/:id', userController_1.default.getPendingImagesUser);
 router.post('/changepassworduser', userController_1.default.changePassword);

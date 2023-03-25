@@ -101,6 +101,8 @@ export default class AdminController {
     });
   }
 
+
+
   static getAdmin(req: Request, res: Response) {
     let id = req.params.id;
     modelAdmin

@@ -91,7 +91,7 @@ class LoginController {
                                     email: user.email,
                                     nombre: user.fakeData.username,
                                 };
-                                let token = yield Jwt_1.generarJWT(payload);
+                                let token = yield (0, Jwt_1.generarJWT)(payload);
                                 return res.status(200).json({
                                     ok: true,
                                     token,
