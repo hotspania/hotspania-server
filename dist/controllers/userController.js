@@ -32,7 +32,7 @@ class UserController {
                 nombre,
                 dni: $dni,
                 telefono: $telefono,
-                fecha_nacimiento: null,
+                fecha_nacimiento,
             },
             email: $email,
             pass: password,
@@ -60,38 +60,28 @@ class UserController {
         }));
     }
     static putFakeData(req, res) {
-        let { id, username, edad, fumadora, 
-        //atencion,
-        //tags,
-        zonas, telefono, 
-        //whatsapp,
-        busto, cintura, 
-        //genero,
-        estatura, peso, cadera, 
-        //servicios,
-        //clase,
-        inicio, fin, horario_inicio, horario_fin, } = req.body;
-        console.log(id);
-        //let $whatsapp = whatsapp.replace(/ /g, "").trim();
+        let { id, username, edad, fumadora, atencion, tags, zonas, telefono, whatsapp, busto, cintura, genero, estatura, peso, cadera, servicios, clase, inicio, fin, horario_inicio, horario_fin, } = req.body;
+        let $telefono = telefono.replace(/ /g, "").trim();
+        let $whatsapp = whatsapp.replace(/ /g, "").trim();
         users_1.default.updateOne({ _id: id }, {
             $set: {
                 fakeData: {
                     username,
                     edad,
                     fumadora,
-                    //atencion,
-                    //tags,
+                    atencion,
+                    tags,
                     zonas,
-                    telefono,
-                    //whatsapp: $whatsapp,
+                    telefono: $telefono,
+                    whatsapp: $whatsapp,
                     busto,
                     cintura,
-                    //genero,
+                    genero,
                     estatura,
                     peso,
                     cadera,
-                    //servicios,
-                    //clase,
+                    servicios,
+                    clase,
                     inicio,
                     fin,
                     horario_inicio,

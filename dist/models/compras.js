@@ -26,6 +26,6 @@ const compra = new mongoose_1.Schema({
         default: Date.now,
     },
 }, {
-    versionKey: false, // You should be aware of the outcome after set to false
+    versionKey: false,
 });
-exports.default = (0, mongoose_1.model)("compra", compra);
+exports.default = mongoose_1.model("compra", compra);
