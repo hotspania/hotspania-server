@@ -48,6 +48,14 @@ const user = new mongoose_1.Schema({
         fin: String,
         horario_inicio: String,
         horario_fin: String,
+        city: {
+            type: String,
+            lowercase: true
+        },
+        zone: {
+            type: String,
+            lowercase: true
+        },
     },
     email: {
         type: String,

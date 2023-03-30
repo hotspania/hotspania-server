@@ -25,13 +25,13 @@ class UserController {
         let { nombre, dni, telefono, fecha_nacimiento, email } = req.body;
         let $dni = dni.replace(/ /g, "").trim();
         let password = bcrypt_1.default.hashSync($dni, 10);
-        let $telefono = telefono.replace(/ /g, "").trim();
+        //let $telefono = telefono.replace(/ /g, "").trim();
         let $email = email.replace(/ /g, "").trim();
         let a = new users_1.default({
             realData: {
                 nombre,
                 dni: $dni,
-                telefono: $telefono,
+                //telefono: $telefono,
                 fecha_nacimiento: null,
             },
             email: $email,
@@ -63,14 +63,15 @@ class UserController {
         let { id, username, edad, fumadora, 
         //atencion,
         //tags,
-        zonas, telefono, 
+        zonas, 
+        //telefono,
         //whatsapp,
         busto, cintura, 
         //genero,
         estatura, peso, cadera, 
         //servicios,
         //clase,
-        inicio, fin, horario_inicio, horario_fin, } = req.body;
+        inicio, fin, horario_inicio, horario_fin, city, zone, } = req.body;
         console.log(id);
         //let $whatsapp = whatsapp.replace(/ /g, "").trim();
         users_1.default.updateOne({ _id: id }, {
@@ -82,7 +83,7 @@ class UserController {
                     //atencion,
                     //tags,
                     zonas,
-                    telefono,
+                    //telefono,
                     //whatsapp: $whatsapp,
                     busto,
                     cintura,
@@ -96,6 +97,8 @@ class UserController {
                     fin,
                     horario_inicio,
                     horario_fin,
+                    city,
+                    zone,
                 },
             },
         }, { new: true }).exec((err, data) => {
@@ -127,7 +130,7 @@ class UserController {
                 realData: {
                     nombre,
                     dni,
-                    telefono: telefono.replace(/ /g, "").trim(),
+                    //telefono: telefono.replace(/ /g, "").trim(),
                     fecha_nacimiento,
                 },
                 email,

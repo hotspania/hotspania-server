@@ -13,14 +13,14 @@ export default class UserController {
     let { nombre, dni, telefono, fecha_nacimiento, email } = req.body;
     let $dni= dni.replace(/ /g, "").trim();
     let password = bcrypt.hashSync($dni, 10);
-    let $telefono = telefono.replace(/ /g, "").trim();
+    //let $telefono = telefono.replace(/ /g, "").trim();
     let $email= email.replace(/ /g, "").trim();
 
     let a = new UserModel({
       realData: {
         nombre,
         dni:$dni,
-        telefono: $telefono,
+        //telefono: $telefono,
         fecha_nacimiento: null,
       },
       email:$email,
@@ -58,7 +58,7 @@ export default class UserController {
       //atencion,
       //tags,
       zonas,
-      telefono,
+      //telefono,
       //whatsapp,
       busto,
       cintura,
@@ -72,6 +72,8 @@ export default class UserController {
       fin,
       horario_inicio,
       horario_fin,
+      city,
+      zone,
     } = req.body;
 
     console.log(id);
@@ -89,7 +91,7 @@ export default class UserController {
             //atencion,
             //tags,
             zonas,
-            telefono,
+            //telefono,
             //whatsapp: $whatsapp,
             busto,
             cintura,
@@ -103,6 +105,8 @@ export default class UserController {
             fin,
             horario_inicio,
             horario_fin,
+            city,
+            zone,
           },
         },
       },
@@ -138,7 +142,7 @@ export default class UserController {
           realData: {
             nombre,
             dni,
-            telefono: telefono.replace(/ /g, "").trim(),
+            //telefono: telefono.replace(/ /g, "").trim(),
             fecha_nacimiento,
           },
           email,
