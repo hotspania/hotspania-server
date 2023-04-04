@@ -32,10 +32,8 @@ const user = new Schema(
         type:String,
         lowercase: true 
       },
-      whatsapp: {
-        type:String,
-        lowercase: true 
-      },
+      whatsapp: Number,
+      llamadas: Number,
       busto: String,
       cintura: String,
       genero: String,
@@ -56,6 +54,7 @@ const user = new Schema(
         type:String,
         lowercase: true 
       },
+      idioma: [{}],
     },
     email: {
       type:String,
