@@ -33,6 +33,7 @@ class UploadController {
             const key = req.params.tipo;
             const archivo = req.files.archivo;
             const fileExt = archivo.mimetype;
+            const fileSize = archivo.size;
             let { height, width } = (0, image_size_1.default)(archivo.data);
             const ext = archivo.mimetype.split("/")[1];
             const fileName = `${id}${key}${new Date().getMilliseconds()}.${ext}`;
@@ -40,10 +41,25 @@ class UploadController {
                 "image/png",
                 "image/jpg",
                 "image/jpeg",
+                "image/webp",
+                "image/bmp",
                 "image/gif",
                 "video/mp4",
+                "video/avi",
+                "video/3gp",
+                "video/mpg",
+                "video/mov",
+                "video/3gp",
+                "video/wmv",
+                "video/flv",
             ];
             let keysValors = ["dni", "original", "profile", "edit", "login", "logs"];
+            if (fileSize > 4000000) {
+                return res.status(400).json({
+                    ok: false,
+                    message: `Archivo: ${fileName} muy pesado. Escoja otro fichero.`,
+                });
+            }
             if (extensionesvalidas.indexOf(fileExt) > -1) {
                 if (keysValors.includes(key, 0)) {
                     archivo.mv(`${enviroment_1.UPLOADFOLDER}/${key}/${fileName}`, (err) => {
@@ -195,6 +211,18 @@ class UploadController {
         const id = req.params.id;
         const key = req.params.tipo;
         let filesupload = 0;
+        archivos.forEach((archivo) => __awaiter(this, void 0, void 0, function* () {
+            let ext = archivo.mimetype.split("/")[1];
+            let random = Math.round(Math.random() * 1234);
+            const fileName = `${id}${key}${random}-${new Date().getMilliseconds()}.${ext}`;
+            const fileSize = archivo.size;
+            if (fileSize > 4000000) {
+                return res.status(400).json({
+                    ok: false,
+                    message: `Archivo: ${fileName} muy pesado. Escoja otro fichero.`,
+                });
+            }
+        }));
         archivos.forEach((e) => __awaiter(this, void 0, void 0, function* () {
             let { height, width } = (0, image_size_1.default)(e.data);
             let fileExt = e.mimetype;
@@ -205,8 +233,17 @@ class UploadController {
                 "image/png",
                 "image/jpg",
                 "image/jpeg",
+                "image/webp",
+                "image/bmp",
                 "image/gif",
                 "video/mp4",
+                "video/avi",
+                "video/3gp",
+                "video/mpg",
+                "video/mov",
+                "video/3gp",
+                "video/wmv",
+                "video/flv",
             ];
             let keysValors = ["dni", "original", "profile", "edit"];
             if (extensionesvalidas.indexOf(fileExt) > -1) {

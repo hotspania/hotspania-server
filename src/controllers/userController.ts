@@ -25,6 +25,7 @@ export default class UserController {
       },
       email:$email,
       pass: password,
+      activa: 0,
     });
     a.save(async (err: any, data: any) => {
       if (err) {
@@ -196,6 +197,79 @@ export default class UserController {
       ? query.push({ "realData.telefono": { $regex: `${cel}`, $options: "i" } })
       : "";
     !!status ? query.push({ auth: status }) : "0";
+    query.push({"activa": 1});
+
+    if (query.length > 0) {
+      UserModel.find({ $or: query }).exec((err: any, data: any) => {
+        if (err) {
+          return res.status(500).json({
+            ok: false,
+            err,
+          });
+        }
+        if (!data) {
+          return res.status(201).json({
+            ok: false,
+            message: "Error no se encuentra ningun usuario",
+          });
+        }
+        if (data) {
+          return res.status(201).json({
+            ok: true,
+            data,
+          });
+        }
+      });
+    } else {
+      UserModel.find({}).exec((err: any, data: any) => {
+        if (err) {
+          return res.status(500).json({
+            ok: false,
+            err,
+          });
+        }
+        if (!data) {
+          return res.status(201).json({
+            ok: false,
+            message: "Error no se encuentra ningun usuario",
+          });
+        }
+        if (data) {
+          return res.status(201).json({
+            ok: true,
+            data,
+          });
+        }
+      });
+    }
+  }
+
+  static async getFichasPendientes(req: Request, res: Response) {
+    let { name, dni, email, whatsapp, cel, status } = req.query;
+    let query: Array<any> = [];
+
+    !!name
+      ? query.push({ "realData.nombre": { $regex: `${name}`, $options: "i" } })
+      : "";
+    !!name
+      ? query.push({
+          "fakeData.username": { $regex: `${name}`, $options: "i" },
+        })
+      : "";
+    !!dni
+      ? query.push({ "realData.dni": { $regex: `${dni}`, $options: "i" } })
+      : "";
+    !!email ? query.push({ email: { $regex: `${email}`, $options: "i" } }) : "";
+    !!whatsapp
+      ? query.push({
+          "fakeData.whatsapp": { $regex: `${whatsapp}`, $options: "i" },
+        })
+      : "";
+    !!cel
+      ? query.push({ "realData.telefono": { $regex: `${cel}`, $options: "i" } })
+      : "";
+    !!status ? query.push({ auth: status }) : "0";
+    query.push({"activa": null});
 
     if (query.length > 0) {
       UserModel.find({ $or: query }).exec((err: any, data: any) => {

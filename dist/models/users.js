@@ -62,6 +62,7 @@ const user = new mongoose_1.Schema({
     },
     pass: String,
     score: Number,
+    activa: Number,
     fecha_creacion: {
         type: Date,
         default: Date.now,
@@ -72,6 +73,9 @@ const user = new mongoose_1.Schema({
     pagos: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "pagos",
+    },
+    user: {
+        type: mongoose_1.Schema.Types.ObjectId, ref: 'profile'
     },
 }, {
     versionKey: false,

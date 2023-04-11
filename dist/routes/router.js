@@ -35,6 +35,7 @@ router.post('/usercreate', userController_1.default.createRealData);
 router.post('/fakecreate', userController_1.default.putFakeData);
 router.put('/realuser', userController_1.default.editRealData);
 router.get('/getprofiles', userController_1.default.getFichas);
+router.get('/getpendingprofiles', userController_1.default.getFichasPendientes);
 router.get('/getprofile/:id', userController_1.default.getFicha);
 router.get('/getalldata/:id', userController_1.default.getAllFicha);
 router.get('/getdnidata/:id', userController_1.default.getDniUser);

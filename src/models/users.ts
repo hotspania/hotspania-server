@@ -62,6 +62,7 @@ const user = new Schema(
     },
     pass: String,
     score: Number,
+    activa: Number,
     fecha_creacion: {
       type: Date,
       default: Date.now,
@@ -73,6 +74,9 @@ const user = new Schema(
       type: Schema.Types.ObjectId,
       ref: "pagos",
     },
+    user:{
+      type: Schema.Types.ObjectId, ref: 'profile'
+  },
   },
   {
     versionKey: false,

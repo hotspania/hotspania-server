@@ -21,6 +21,7 @@ export default class UploadController {
     const key = req.params.tipo;
     const archivo = req.files.archivo;
     const fileExt = archivo.mimetype;
+    const fileSize = archivo.size;
     let {height,width} = sizeOf(archivo.data);   
     const ext = archivo.mimetype.split("/")[1];
     const fileName = `${id}${key}${new Date().getMilliseconds()}.${ext}`;
@@ -28,10 +29,26 @@ export default class UploadController {
       "image/png",
       "image/jpg",
       "image/jpeg",
+      "image/webp",
+      "image/bmp",
       "image/gif",
       "video/mp4",
+      "video/avi",
+      "video/3gp",
+      "video/mpg",
+      "video/mov",
+      "video/3gp",
+      "video/wmv",
+      "video/flv",
     ];
     let keysValors = ["dni", "original", "profile", "edit","login","logs"];
+
+    if(fileSize > 4000000) {
+      return res.status(400).json({
+        ok: false,
+        message: `Archivo: ${fileName} muy pesado. Escoja otro fichero.`,
+      });
+    }
 
     if (extensionesvalidas.indexOf(fileExt) > -1) {
       if (keysValors.includes(key, 0)) {   
@@ -187,7 +204,18 @@ export default class UploadController {
     const key: any = req.params.tipo;
     let filesupload: number = 0;
 
-
+    archivos.forEach(async (archivo: any) => {
+      let ext = archivo.mimetype.split("/")[1];
+      let random = Math.round(Math.random() * 1234);
+      const fileName = `${id}${key}${random}-${new Date().getMilliseconds()}.${ext}`;
+      const fileSize = archivo.size;
+      if(fileSize > 4000000) {
+        return res.status(400).json({
+          ok: false,
+          message: `Archivo: ${fileName} muy pesado. Escoja otro fichero.`,
+        });
+      }
+    });
 
     archivos.forEach(async (e: any) => {
       let {height,width} = sizeOf(e.data);     
@@ -199,10 +227,21 @@ export default class UploadController {
         "image/png",
         "image/jpg",
         "image/jpeg",
+        "image/webp",
+        "image/bmp",
         "image/gif",
         "video/mp4",
+        "video/avi",
+        "video/3gp",
+        "video/mpg",
+        "video/mov",
+        "video/3gp",
+        "video/wmv",
+        "video/flv",
       ];
       let keysValors = ["dni", "original", "profile", "edit"];
+
+
 
       if (extensionesvalidas.indexOf(fileExt) > -1) {
         if (keysValors.includes(key, 0)) {
@@ -235,7 +274,7 @@ export default class UploadController {
       }
     });
 
-    return res.status(200).json({
+   return res.status(200).json({
       ok: true,
       message: "Exito Subido todos los archivos",
     });

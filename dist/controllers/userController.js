@@ -36,6 +36,7 @@ class UserController {
             },
             email: $email,
             pass: password,
+            activa: 0,
         });
         a.save((err, data) => __awaiter(this, void 0, void 0, function* () {
             if (err) {
@@ -176,6 +177,79 @@ class UserController {
                 ? query.push({ "realData.telefono": { $regex: `${cel}`, $options: "i" } })
                 : "";
             !!status ? query.push({ auth: status }) : "0";
+            query.push({ "activa": 1 });
+            if (query.length > 0) {
+                users_1.default.find({ $or: query }).exec((err, data) => {
+                    if (err) {
+                        return res.status(500).json({
+                            ok: false,
+                            err,
+                        });
+                    }
+                    if (!data) {
+                        return res.status(201).json({
+                            ok: false,
+                            message: "Error no se encuentra ningun usuario",
+                        });
+                    }
+                    if (data) {
+                        return res.status(201).json({
+                            ok: true,
+                            data,
+                        });
+                    }
+                });
+            }
+            else {
+                users_1.default.find({}).exec((err, data) => {
+                    if (err) {
+                        return res.status(500).json({
+                            ok: false,
+                            err,
+                        });
+                    }
+                    if (!data) {
+                        return res.status(201).json({
+                            ok: false,
+                            message: "Error no se encuentra ningun usuario",
+                        });
+                    }
+                    if (data) {
+                        return res.status(201).json({
+                            ok: true,
+                            data,
+                        });
+                    }
+                });
+            }
+        });
+    }
+    static getFichasPendientes(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { name, dni, email, whatsapp, cel, status } = req.query;
+            let query = [];
+            !!name
+                ? query.push({ "realData.nombre": { $regex: `${name}`, $options: "i" } })
+                : "";
+            !!name
+                ? query.push({
+                    "fakeData.username": { $regex: `${name}`, $options: "i" },
+                })
+                : "";
+            !!dni
+                ? query.push({ "realData.dni": { $regex: `${dni}`, $options: "i" } })
+                : "";
+            !!email ? query.push({ email: { $regex: `${email}`, $options: "i" } }) : "";
+            !!whatsapp
+                ? query.push({
+                    "fakeData.whatsapp": { $regex: `${whatsapp}`, $options: "i" },
+                })
+                : "";
+            !!cel
+                ? query.push({ "realData.telefono": { $regex: `${cel}`, $options: "i" } })
+                : "";
+            !!status ? query.push({ auth: status }) : "0";
+            query.push({ "activa": null });
             if (query.length > 0) {
                 users_1.default.find({ $or: query }).exec((err, data) => {
                     if (err) {
