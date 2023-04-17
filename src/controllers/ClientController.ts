@@ -34,13 +34,17 @@ export default class ClientControler {
       modelProfile
         .find(
           {
-            listados: { $in: query },
-            active: true,
+            user: {
+              activa: 1,
+            },
+            //listados: { $in: query },
             visible: true,
             online: true,
             freeze: false,
           },
-          { imagenes: false, listados: false }
+          { 
+            imagenes: false, listados: false
+          },
         )
         .populate("user")
         .exec((err: any, data: any) => {
@@ -77,8 +81,10 @@ export default class ClientControler {
       modelProfile
         .find(
           {
-            listados: { $in: query },
-            active: true,
+            user: {
+              activa: 1,
+            },
+            //listados: { $in: query },
             visible: true,
             freeze: false,
           },

@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import modelProfile from "../models/profile";
 import modelFinanzas from "../models/finanzas";
 import CronController from "./cronController";
+import UserModel from "../models/users";
 
 export default class AnunciosController {
   static async addTimeProfile(req: Request, res: Response) {

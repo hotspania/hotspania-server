@@ -67,7 +67,7 @@ const user = new mongoose_1.Schema({
         type: Date,
         default: Date.now,
     },
-    status: Number,
+    status: { type: Number, default: 0 },
     auth: { type: Number, default: 0 },
     pin: Number,
     pagos: {

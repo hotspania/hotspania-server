@@ -11,21 +11,22 @@ export default class UserController {
   //DATOS DE FICHAS
   static createRealData(req: Request, res: Response) {
     let { nombre, dni, telefono, fecha_nacimiento, email } = req.body;
-    let $dni= dni.replace(/ /g, "").trim();
+    let $dni = dni.replace(/ /g, "").trim();
     let password = bcrypt.hashSync($dni, 10);
     //let $telefono = telefono.replace(/ /g, "").trim();
-    let $email= email.replace(/ /g, "").trim();
+    let $email = email.replace(/ /g, "").trim();
 
     let a = new UserModel({
       realData: {
         nombre,
-        dni:$dni,
+        dni: $dni,
         //telefono: $telefono,
         fecha_nacimiento: null,
       },
-      email:$email,
+      email: $email,
       pass: password,
       activa: 0,
+      status: 0,
     });
     a.save(async (err: any, data: any) => {
       if (err) {
@@ -181,8 +182,8 @@ export default class UserController {
       : "";
     !!name
       ? query.push({
-          "fakeData.username": { $regex: `${name}`, $options: "i" },
-        })
+        "fakeData.username": { $regex: `${name}`, $options: "i" },
+      })
       : "";
     !!dni
       ? query.push({ "realData.dni": { $regex: `${dni}`, $options: "i" } })
@@ -190,14 +191,14 @@ export default class UserController {
     !!email ? query.push({ email: { $regex: `${email}`, $options: "i" } }) : "";
     !!whatsapp
       ? query.push({
-          "fakeData.whatsapp": { $regex: `${whatsapp}`, $options: "i" },
-        })
+        "fakeData.whatsapp": { $regex: `${whatsapp}`, $options: "i" },
+      })
       : "";
     !!cel
       ? query.push({ "realData.telefono": { $regex: `${cel}`, $options: "i" } })
       : "";
     !!status ? query.push({ auth: status }) : "0";
-    query.push({"activa": 1});
+    query.push({ "activa": 1 });
 
     if (query.length > 0) {
       UserModel.find({ $or: query }).exec((err: any, data: any) => {
@@ -245,7 +246,7 @@ export default class UserController {
   }
 
   static async getFichasPendientes(req: Request, res: Response) {
-    let { name, dni, email, whatsapp, cel, status } = req.query;
+    let { id, name, dni, email, whatsapp, cel, status } = req.query;
     let query: Array<any> = [];
 
     !!name
@@ -253,8 +254,8 @@ export default class UserController {
       : "";
     !!name
       ? query.push({
-          "fakeData.username": { $regex: `${name}`, $options: "i" },
-        })
+        "fakeData.username": { $regex: `${name}`, $options: "i" },
+      })
       : "";
     !!dni
       ? query.push({ "realData.dni": { $regex: `${dni}`, $options: "i" } })
@@ -262,14 +263,14 @@ export default class UserController {
     !!email ? query.push({ email: { $regex: `${email}`, $options: "i" } }) : "";
     !!whatsapp
       ? query.push({
-          "fakeData.whatsapp": { $regex: `${whatsapp}`, $options: "i" },
-        })
+        "fakeData.whatsapp": { $regex: `${whatsapp}`, $options: "i" },
+      })
       : "";
     !!cel
       ? query.push({ "realData.telefono": { $regex: `${cel}`, $options: "i" } })
       : "";
     !!status ? query.push({ auth: status }) : "0";
-    query.push({"activa": null});
+    query.push({ "activa": 0 });
 
     if (query.length > 0) {
       UserModel.find({ $or: query }).exec((err: any, data: any) => {
@@ -344,7 +345,7 @@ export default class UserController {
   static getAllFicha(req: Request, res: Response) {
     let id = req.params.id;
 
-    UserModel.find({ _id: id }).exec((err: any, data: any) => {
+    UserModel.find({ _id: id }).populate('profile').exec((err: any, data: any) => {
       if (err) {
         return res.status(500).json({
           ok: false,
@@ -392,6 +393,42 @@ export default class UserController {
         return res.status(200).json({
           ok: true,
           data,
+        });
+      }
+    });
+  }
+
+  static updateFicha(req: Request, res: Response) {
+    let {
+      _id,
+      activa,
+    } = req.body;
+
+    UserModel.updateOne(
+      { _id },
+      {
+        $set: {
+          activa,
+        },
+      },
+    ).exec((err: any, data: any) => {
+      if (err) {
+        return res.status(500).json({
+          code: 500,
+          err,
+        });
+      }
+      if (!data) {
+        return res.status(401).json({
+          code: 401,
+          message: "Error no se encuentra el usuario",
+        });
+      }
+      if (data) {
+        return res.status(201).json({
+          code: 201,
+          _id,
+          message: "Ficha de usuario aprobada",
         });
       }
     });
@@ -531,10 +568,10 @@ export default class UserController {
 
   static activarProfile(req: Request, res: Response) {
 
-    let { id }= req.body;
+    let { id } = req.body;
 
     modelProfile.updateOne(
-      { user:id },
+      { user: id },
       {
         $set: {
           comienzo: "",
@@ -555,7 +592,7 @@ export default class UserController {
           message: "Error no se encuentra ningun record",
         });
       }
-      if (data) {     
+      if (data) {
         return res.status(201).json({
           ok: true,
           data,
@@ -606,52 +643,66 @@ export default class UserController {
     });
   }
 
-  static deleteficha(req: Request, res: Response){
-    let { _id }=req.body;
-    
-  
+  static deleteficha(req: Request, res: Response) {
+    let { _id } = req.body;
+
+
 
 
   }
 
-  static deleteProfile(user:any){
-    return new Promise((resolve, reject) => {
-      modelProfile
-        .deleteOne({ user: user })
-        .exec((err: any, data: any) => {
-          if (err) {
-            resolve(false);
-          }
-          if (!data) {
-            resolve(false);
-          }
-          if (data) {
-            resolve(true);
-          }
+  static deleteProfile(req: Request, res: Response) {
+
+    let id = req.params.id;
+    modelProfile.deleteOne({ '_id': id }).exec((err: any, data: any) => {
+      if (err) {
+        return res.status(500).json({
+          ok: false,
+          err
         });
+      }
+      if (!data) {
+        return res.status(201).json({
+          ok: false,
+          message: 'Error no se encuentra ningun record'
+        });
+      }
+      if (data) {
+        return res.status(201).json({
+          ok: true,
+          data
+        });
+      }
     });
   }
-  static deleteUser(user:any){
-    return new Promise((resolve, reject) => {
-      UserModel
-        .deleteOne({ user: user })
-        .exec((err: any, data: any) => {
-          if (err) {
-            resolve(false);
-          }
-          if (!data) {
-            resolve(false);
-          }
-          if (data) {
-            resolve(true);
-          }
+  static deleteUser(req: Request, res: Response) {
+
+    let id = req.params.id;
+    UserModel.deleteOne({ '_id': id }).exec((err: any, data: any) => {
+      if (err) {
+        return res.status(500).json({
+          ok: false,
+          err
         });
+      }
+      if (!data) {
+        return res.status(201).json({
+          ok: false,
+          message: 'Error no se encuentra ningun record'
+        });
+      }
+      if (data) {
+        return res.status(201).json({
+          ok: true,
+          data
+        });
+      }
     });
   }
-  static deleteFotos(imagenes:any,tipo:any){
+  static deleteFotos(imagenes: any, tipo: any) {
     return new Promise((resolve, reject) => {
-      imagenes.forEach(async (x:any) => {
-       await UploadController.borraArchivo(x,tipo);        
+      imagenes.forEach(async (x: any) => {
+        await UploadController.borraArchivo(x, tipo);
       });
       resolve(true);
     });

@@ -48,6 +48,11 @@ router.get('/getpendingimagesuser/:id',UserController.getPendingImagesUser);
 router.post('/changepassworduser',UserController.changePassword);
 router.post('/activarficha',UserController.activarProfile);
 
+router.post('/updateficha',UserController.updateFicha);
+
+router.delete('/deleteprofile/:id',UserController.deleteProfile);
+router.delete('/deleteuser/:id',UserController.deleteUser);
+
 //Specs
 router.post('/pushspecs',UserController.setSpecs);
 router.get('/getspecs/:id',UserController.getSpecs);

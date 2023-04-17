@@ -37,6 +37,7 @@ class UserController {
             email: $email,
             pass: password,
             activa: 0,
+            status: 0,
         });
         a.save((err, data) => __awaiter(this, void 0, void 0, function* () {
             if (err) {
@@ -226,7 +227,7 @@ class UserController {
     }
     static getFichasPendientes(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let { name, dni, email, whatsapp, cel, status } = req.query;
+            let { id, name, dni, email, whatsapp, cel, status } = req.query;
             let query = [];
             !!name
                 ? query.push({ "realData.nombre": { $regex: `${name}`, $options: "i" } })
@@ -249,7 +250,7 @@ class UserController {
                 ? query.push({ "realData.telefono": { $regex: `${cel}`, $options: "i" } })
                 : "";
             !!status ? query.push({ auth: status }) : "0";
-            query.push({ "activa": null });
+            query.push({ "activa": 0 });
             if (query.length > 0) {
                 users_1.default.find({ $or: query }).exec((err, data) => {
                     if (err) {
@@ -321,7 +322,7 @@ class UserController {
     }
     static getAllFicha(req, res) {
         let id = req.params.id;
-        users_1.default.find({ _id: id }).exec((err, data) => {
+        users_1.default.find({ _id: id }).populate('profile').exec((err, data) => {
             if (err) {
                 return res.status(500).json({
                     ok: false,
@@ -366,6 +367,34 @@ class UserController {
                 return res.status(200).json({
                     ok: true,
                     data,
+                });
+            }
+        });
+    }
+    static updateFicha(req, res) {
+        let { _id, activa, } = req.body;
+        users_1.default.updateOne({ _id }, {
+            $set: {
+                activa,
+            },
+        }).exec((err, data) => {
+            if (err) {
+                return res.status(500).json({
+                    code: 500,
+                    err,
+                });
+            }
+            if (!data) {
+                return res.status(401).json({
+                    code: 401,
+                    message: "Error no se encuentra el usuario",
+                });
+            }
+            if (data) {
+                return res.status(201).json({
+                    code: 201,
+                    _id,
+                    message: "Ficha de usuario aprobada",
                 });
             }
         });
@@ -561,38 +590,50 @@ class UserController {
     static deleteficha(req, res) {
         let { _id } = req.body;
     }
-    static deleteProfile(user) {
-        return new Promise((resolve, reject) => {
-            profile_1.default
-                .deleteOne({ user: user })
-                .exec((err, data) => {
-                if (err) {
-                    resolve(false);
-                }
-                if (!data) {
-                    resolve(false);
-                }
-                if (data) {
-                    resolve(true);
-                }
-            });
+    static deleteProfile(req, res) {
+        let id = req.params.id;
+        profile_1.default.deleteOne({ '_id': id }).exec((err, data) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                });
+            }
+            if (!data) {
+                return res.status(201).json({
+                    ok: false,
+                    message: 'Error no se encuentra ningun record'
+                });
+            }
+            if (data) {
+                return res.status(201).json({
+                    ok: true,
+                    data
+                });
+            }
         });
     }
-    static deleteUser(user) {
-        return new Promise((resolve, reject) => {
-            users_1.default
-                .deleteOne({ user: user })
-                .exec((err, data) => {
-                if (err) {
-                    resolve(false);
-                }
-                if (!data) {
-                    resolve(false);
-                }
-                if (data) {
-                    resolve(true);
-                }
-            });
+    static deleteUser(req, res) {
+        let id = req.params.id;
+        users_1.default.deleteOne({ '_id': id }).exec((err, data) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    err
+                });
+            }
+            if (!data) {
+                return res.status(201).json({
+                    ok: false,
+                    message: 'Error no se encuentra ningun record'
+                });
+            }
+            if (data) {
+                return res.status(201).json({
+                    ok: true,
+                    data
+                });
+            }
         });
     }
     static deleteFotos(imagenes, tipo) {

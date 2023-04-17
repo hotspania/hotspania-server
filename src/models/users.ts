@@ -67,7 +67,7 @@ const user = new Schema(
       type: Date,
       default: Date.now,
     },
-    status: Number,
+    status: { type: Number, default: 0 },
     auth: { type: Number, default: 0 },
     pin: Number,
     pagos: {
@@ -76,7 +76,7 @@ const user = new Schema(
     },
     user:{
       type: Schema.Types.ObjectId, ref: 'profile'
-  },
+    },
   },
   {
     versionKey: false,

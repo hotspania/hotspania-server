@@ -45,6 +45,9 @@ router.get('/getimagesuser/:id/:status/:tipo', userController_1.default.getImage
 router.get('/getpendingimagesuser/:id', userController_1.default.getPendingImagesUser);
 router.post('/changepassworduser', userController_1.default.changePassword);
 router.post('/activarficha', userController_1.default.activarProfile);
+router.post('/updateficha', userController_1.default.updateFicha);
+router.delete('/deleteprofile/:id', userController_1.default.deleteProfile);
+router.delete('/deleteuser/:id', userController_1.default.deleteUser);
 //Specs
 router.post('/pushspecs', userController_1.default.setSpecs);
 router.get('/getspecs/:id', userController_1.default.getSpecs);

@@ -43,12 +43,16 @@ class ClientControler {
         if (!!status) {
             profile_1.default
                 .find({
-                listados: { $in: query },
-                active: true,
+                user: {
+                    activa: 1,
+                },
+                //listados: { $in: query },
                 visible: true,
                 online: true,
                 freeze: false,
-            }, { imagenes: false, listados: false })
+            }, {
+                imagenes: false, listados: false
+            })
                 .populate("user")
                 .exec((err, data) => {
                 if (err) {
@@ -83,8 +87,10 @@ class ClientControler {
         else {
             profile_1.default
                 .find({
-                listados: { $in: query },
-                active: true,
+                user: {
+                    activa: 1,
+                },
+                //listados: { $in: query },
                 visible: true,
                 freeze: false,
             }, { imagenes: false, listados: false })
