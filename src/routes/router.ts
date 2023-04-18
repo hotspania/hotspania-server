@@ -6,6 +6,7 @@ import ZonesController from '../controllers/zonesController';
 import PaquetesController from '../controllers/paquetesController';
 import ImagesController from '../controllers/imagesController';
 import AnunciosController from '../controllers/anunciosController';
+import NotificationController from '../controllers/notificationController';
 import AdminController from '../controllers/adminsController';
 import FinanzasController from '../controllers/finanzasController';
 import ClientControler from '../controllers/ClientController';
@@ -52,6 +53,11 @@ router.post('/updateficha',UserController.updateFicha);
 
 router.delete('/deleteprofile/:id',UserController.deleteProfile);
 router.delete('/deleteuser/:id',UserController.deleteUser);
+
+//Notificationes
+router.post('/savenotification', NotificationController.save);
+router.get('/getnotifications', NotificationController.getAll);
+router.delete('/deleteallnotifications', NotificationController.deleteAll);
 
 //Specs
 router.post('/pushspecs',UserController.setSpecs);

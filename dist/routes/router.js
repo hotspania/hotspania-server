@@ -11,6 +11,7 @@ const zonesController_1 = __importDefault(require("../controllers/zonesControlle
 const paquetesController_1 = __importDefault(require("../controllers/paquetesController"));
 const imagesController_1 = __importDefault(require("../controllers/imagesController"));
 const anunciosController_1 = __importDefault(require("../controllers/anunciosController"));
+const notificationController_1 = __importDefault(require("../controllers/notificationController"));
 const adminsController_1 = __importDefault(require("../controllers/adminsController"));
 const finanzasController_1 = __importDefault(require("../controllers/finanzasController"));
 const ClientController_1 = __importDefault(require("../controllers/ClientController"));
@@ -48,6 +49,10 @@ router.post('/activarficha', userController_1.default.activarProfile);
 router.post('/updateficha', userController_1.default.updateFicha);
 router.delete('/deleteprofile/:id', userController_1.default.deleteProfile);
 router.delete('/deleteuser/:id', userController_1.default.deleteUser);
+//Notificationes
+router.post('/savenotification', notificationController_1.default.save);
+router.get('/getnotifications', notificationController_1.default.getAll);
+router.delete('/deleteallnotifications', notificationController_1.default.deleteAll);
 //Specs
 router.post('/pushspecs', userController_1.default.setSpecs);
 router.get('/getspecs/:id', userController_1.default.getSpecs);

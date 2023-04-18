@@ -10,6 +10,7 @@ const finanzasController_1 = __importDefault(require("../controllers/finanzasCon
 const finanzasRecords_1 = __importDefault(require("../controllers/finanzasRecords"));
 const imagesController_1 = __importDefault(require("../controllers/imagesController"));
 const loginController_1 = __importDefault(require("../controllers/loginController"));
+const notificationController_1 = __importDefault(require("../controllers/notificationController"));
 const noticiasController_1 = __importDefault(require("../controllers/noticiasController"));
 const onlineController_1 = __importDefault(require("../controllers/onlineController"));
 const peticionesController_1 = __importDefault(require("../controllers/peticionesController"));
@@ -47,6 +48,10 @@ webrouter.post('/fakecreate', validarToken_1.validarJWT, userController_1.defaul
 webrouter.get('/getzones', zonesController_1.default.getZones);
 webrouter.post('/setstates', validarToken_1.validarJWT, anunciosController_1.default.setStates);
 webrouter.delete('/deleteonline/:id', validarToken_1.validarJWT, onlineController_1.default.deleteOnline);
+//Notificationes
+webrouter.post('/savenotification', notificationController_1.default.save);
+webrouter.get('/getnotifications', notificationController_1.default.getAll);
+webrouter.delete('/deleteallnotifications', notificationController_1.default.deleteAll);
 //peticiones
 webrouter.post('/addpeticion', validarToken_1.validarJWT, peticionesController_1.default.create);
 webrouter.post('/editpeticion', validarToken_1.validarJWT, peticionesController_1.default.editPeticion);

@@ -5,6 +5,7 @@ import FinanzasController from '../controllers/finanzasController';
 import RecordsController from '../controllers/finanzasRecords';
 import ImagesController from '../controllers/imagesController';
 import LoginController from '../controllers/loginController';
+import NotificationController from '../controllers/notificationController';
 import NoticiasController from '../controllers/noticiasController';
 import OnlineController from '../controllers/onlineController';
 import PeticionesController from '../controllers/peticionesController';
@@ -48,6 +49,10 @@ webrouter.get('/getzones',ZonesController.getZones);
 webrouter.post('/setstates',validarJWT,AnunciosController.setStates);
 webrouter.delete('/deleteonline/:id',validarJWT,OnlineController.deleteOnline)
 
+//Notificationes
+webrouter.post('/savenotification', NotificationController.save);
+webrouter.get('/getnotifications', NotificationController.getAll);
+webrouter.delete('/deleteallnotifications', NotificationController.deleteAll);
 
 //peticiones
 webrouter.post('/addpeticion',validarJWT,PeticionesController.create);
