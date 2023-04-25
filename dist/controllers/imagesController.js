@@ -27,7 +27,7 @@ class ImagesController {
                 .catch((error) => error);
             images_1.default.updateOne({ _id: _id }, {
                 $set: {
-                    status: "CHANGED",
+                    status: "ACCEPTED",
                 },
             }).exec((err, data) => {
                 if (err) {
@@ -302,7 +302,7 @@ class ImagesController {
         return __awaiter(this, void 0, void 0, function* () {
             let { data } = req.body;
             yield data.forEach((item) => __awaiter(this, void 0, void 0, function* () {
-                yield ImagesController.changeOneimage(item, "CHANGED")
+                yield ImagesController.changeOneimage(item, "ACCEPTED")
                     .then((x) => x)
                     .catch((e) => console.log(e));
                 yield ImagesController.saveOneImage(item)

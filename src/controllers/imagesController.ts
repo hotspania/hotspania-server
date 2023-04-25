@@ -18,7 +18,7 @@ export default class ImagesController {
       { _id: _id },
       {
         $set: {
-          status: "CHANGED",
+          status: "ACCEPTED",
         },
       }
     ).exec((err: any, data: any) => {
@@ -315,7 +315,7 @@ export default class ImagesController {
     let { data } = req.body;
   
     await data.forEach(async (item: any) => {
-      await ImagesController.changeOneimage(item, "CHANGED")
+      await ImagesController.changeOneimage(item, "ACCEPTED")
         .then((x) => x)
         .catch((e) => console.log(e));
       await ImagesController.saveOneImage(item)
