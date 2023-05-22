@@ -201,7 +201,7 @@ export default class UserController {
     query.push({ "activa": 1 });
 
     if (query.length > 0) {
-      UserModel.find({ $or: query }).exec((err: any, data: any) => {
+      UserModel.find({ $or: query }).sort({_id: -1}).exec((err: any, data: any) => {
         if (err) {
           return res.status(500).json({
             ok: false,
@@ -222,7 +222,7 @@ export default class UserController {
         }
       });
     } else {
-      UserModel.find({}).exec((err: any, data: any) => {
+      UserModel.find({}).sort({_id: -1}).exec((err: any, data: any) => {
         if (err) {
           return res.status(500).json({
             ok: false,
@@ -273,7 +273,7 @@ export default class UserController {
     query.push({ "activa": 0 });
 
     if (query.length > 0) {
-      UserModel.find({ $or: query }).exec((err: any, data: any) => {
+      UserModel.find({ $or: query }).sort({_id: -1}).exec((err: any, data: any) => {
         if (err) {
           return res.status(500).json({
             ok: false,
@@ -294,7 +294,7 @@ export default class UserController {
         }
       });
     } else {
-      UserModel.find({}).exec((err: any, data: any) => {
+      UserModel.find({}).sort({_id: -1}).exec((err: any, data: any) => {
         if (err) {
           return res.status(500).json({
             ok: false,
