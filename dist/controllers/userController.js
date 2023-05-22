@@ -180,7 +180,7 @@ class UserController {
             !!status ? query.push({ auth: status }) : "0";
             query.push({ "activa": 1 });
             if (query.length > 0) {
-                users_1.default.find({ $or: query }).exec((err, data) => {
+                users_1.default.find({ $or: query }).sort({ _id: -1 }).exec((err, data) => {
                     if (err) {
                         return res.status(500).json({
                             ok: false,
@@ -202,7 +202,7 @@ class UserController {
                 });
             }
             else {
-                users_1.default.find({}).exec((err, data) => {
+                users_1.default.find({}).sort({ _id: -1 }).exec((err, data) => {
                     if (err) {
                         return res.status(500).json({
                             ok: false,
@@ -252,7 +252,7 @@ class UserController {
             !!status ? query.push({ auth: status }) : "0";
             query.push({ "activa": 0 });
             if (query.length > 0) {
-                users_1.default.find({ $or: query }).exec((err, data) => {
+                users_1.default.find({ $or: query }).sort({ _id: -1 }).exec((err, data) => {
                     if (err) {
                         return res.status(500).json({
                             ok: false,
@@ -274,7 +274,7 @@ class UserController {
                 });
             }
             else {
-                users_1.default.find({}).exec((err, data) => {
+                users_1.default.find({}).sort({ _id: -1 }).exec((err, data) => {
                     if (err) {
                         return res.status(500).json({
                             ok: false,
